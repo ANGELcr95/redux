@@ -1,23 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import HomePage from './components/Homepage';
+import {
+  HashRouter as  Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom"
+import Products from './components/Products';
+import BuyProduct from './components/HomePage/Banner/BuyProduct';
+// import AuthProvider from './Auth/AuthProvider';
+import {Provider} from 'react-redux'
+import generateStore from './redux/store';
+
 
 function App() {
+
+  const store = generateStore()
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Provider store={store}>
+          <Switch>
+            <HomePage exact path="/"/>
+            <BuyProduct exact path="/compraproducto"/>
+            <Products exact path="/productos"/>
+            </Switch>
+        </Provider>
+      </Router>
     </div>
   );
 }
